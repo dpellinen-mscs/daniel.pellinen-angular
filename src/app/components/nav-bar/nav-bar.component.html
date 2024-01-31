@@ -1,0 +1,16 @@
+<mat-toolbar color="primary">
+    <button mat-button style="font-size: 18px" routerLink="/">
+      <mat-icon>home</mat-icon> COMC-2749: Angular 13
+    </button>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+  </mat-toolbar>
+  
+  <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="/ex2a">
+        <mat-icon>account_box</mat-icon>
+        <span> Exercise 2A Country</span>
+      </button>
+    </mat-menu>
+    
