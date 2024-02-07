@@ -4,6 +4,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { DataSource } from '@angular/cdk/collections';
 import {TodoItem} from '../shared/todo-item.model'
+
 @Component({
   selector: 'app-dpellinen2a-todo',
   templateUrl: './dpellinen2a-todo.component.html',
@@ -17,8 +18,8 @@ export class Dpellinen2aTodoComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    // );
     this.http.get<TodoItem>('https://localhost:5001/api/todoitems/2').subscribe(data => {
-
       this.todoItem = new TodoItem(
         data["id"],
         data["name"],
@@ -27,5 +28,4 @@ export class Dpellinen2aTodoComponent implements OnInit {
         this.itemNameInput.setValue(this.todoItem.name);
       });
   }
-  
 }

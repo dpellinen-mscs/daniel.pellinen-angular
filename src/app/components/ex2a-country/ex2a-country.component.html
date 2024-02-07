@@ -1,1 +1,54 @@
-<p>ex2a-country works!</p>
+
+
+<mat-card-content *ngIf="country">
+    <form class="form-width">
+        <mat-form-field class = "full-width">
+            <input matInput placeholder="Country ID" 
+            [formControl]="countryIdInput" 
+            required type="number">
+            <mat-error *ngIf="countryIdInput.invalid">Enter country ID</mat-error>
+        </mat-form-field>
+        <mat-form-field class = "full-width">
+            <input matInput placeholder="Country name" 
+            [formControl]="countryNameInput" 
+            required minlength="3" maxlength="40">
+            <mat-error *ngIf="countryNameInput.invalid">Enter country name 3 - 40 characters/mat-error></mat-error>
+        </mat-form-field>
+        <mat-form-field class = "full-width">
+            <input matInput placeholder="Country formal name" 
+            [formControl]="formalNameInput" 
+            required minlength="3" maxlength="40">
+            <mat-error *ngIf="formalNameInput.invalid">Enter formal name: 3-40 characters</mat-error>
+        </mat-form-field>
+            <mat-form-field class = "full-width">
+            <input matInput placeholder="3 Letter Code" 
+            [formControl]="isoAlpha3CodeInput" 
+            required minlength="3" maxlength="40">
+            <mat-error *ngIf="isoAlpha3CodeInput.invalid">Enter 3 letter code: 3-40 characters</mat-error>
+        </mat-form-field>
+        <mat-form-field class = "full-width">
+            <input matInput placeholder="Population" 
+            [formControl]="latestRecordedPopulationInput" 
+            required type="number">
+            <mat-error *ngIf="latestRecordedPopulationInput.invalid">Enter population</mat-error>
+        </mat-form-field>
+        <mat-form-field class = "full-width">
+            <input matInput placeholder="Continent" 
+            [formControl]="continentInput" 
+            required minlength="3" maxlength="40">
+            <mat-error *ngIf="continentInput.invalid">Enter contient: 3 - 40 characters</mat-error>
+        </mat-form-field>
+        <mat-form-field class = "full-width">
+            <input matInput placeholder="Region" 
+            [formControl]="regionInput"
+            required minlength="3" maxlength="40">
+            <mat-error *ngIf="regionInput.invalid">Enter region: 3-40 characters</mat-error>
+        </mat-form-field>
+    <mat-form-field class = "full-width">
+            <input matInput placeholder="Subregion" 
+            [formControl]="subregionInput" 
+            required minlength="3" maxlength="40">
+            <mat-error *ngIf="subregionInput.invalid">Enter subregion: 3-40 characters</mat-error>
+        </mat-form-field>
+    </form>
+</mat-card-content>

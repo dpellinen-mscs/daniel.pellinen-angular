@@ -7,10 +7,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using TodoApi;
-using TodoApi.Data;
+using WideWorld;
+using WideWorld.Data;
 
-namespace TodoApi
+namespace WideWorld
 {
     public class Startup
     {
@@ -23,14 +23,9 @@ namespace TodoApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<WideWorldContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("WideWorldConnectionString")));
             services.AddControllers();
-
-            services.AddDbContext<TodoContext>(opt =>
-                                               opt.UseInMemoryDatabase("TodoList"));
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "TodoApi", Version = "v1" });
-            //});
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -1,4 +1,4 @@
-namespace TodoApi.Models
+namespace WideWorld.Models
 {
     public class TodoItem
     {

@@ -7,9 +7,9 @@
         </mat-card-header>
         <mat-card-content *ngIf="todoItem">
             <form class="ex2a1-form">
-                <mat-form-field>
+                <mat-form-field class = "full-width">
                 <input matInput placeholder="Item name" 
-                [formControl]="itemNameInput"
+                [formControl]="itemNameInput" [(ngModel)]="todoItem.name"
                  required minlength="3" maxlength="40">
                 <mat-error *ngIf="itemNameInput.invalid">Enter item name: 3-40 characters</mat-error>
                 </mat-form-field>
