@@ -21,13 +21,19 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { Dpellinen2aTodoComponent } from './components/dpellinen2a-todo/dpellinen2a-todo.component';
 import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
 
+//2749 Ex2b
+import {CountriesService} from './components/shared/countries.service';
+import { Ex2bCountryComponent } from './components/ex2b-country/ex2b-country.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NavBarComponent,
     Ex2aCountryComponent,
-    Dpellinen2aTodoComponent
+    Dpellinen2aTodoComponent,
+    Ex2bCountryComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -45,7 +51,7 @@ import { HttpClientModule } from '@angular/common/http'; // Import HttpClientMod
     MatDialogModule,
     MatGridListModule
   ],
-  providers: [],
+  providers: [CountriesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
