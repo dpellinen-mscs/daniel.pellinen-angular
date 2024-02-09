@@ -23,7 +23,9 @@ import { HttpClientModule } from '@angular/common/http'; // Import HttpClientMod
 
 //2749 Ex2b
 import {CountriesService} from './components/shared/countries.service';
+import {StatesProvincesService} from './components/shared/states-provinces.service';
 import { Ex2bCountryComponent } from './components/ex2b-country/ex2b-country.component';
+import { Ex2cStateProvinceComponent } from './components/ex2c-state-province/ex2c-state-province.component';
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import { Ex2bCountryComponent } from './components/ex2b-country/ex2b-country.com
     NavBarComponent,
     Ex2aCountryComponent,
     Dpellinen2aTodoComponent,
-    Ex2bCountryComponent
+    Ex2bCountryComponent,
+    Ex2cStateProvinceComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -51,7 +54,7 @@ import { Ex2bCountryComponent } from './components/ex2b-country/ex2b-country.com
     MatDialogModule,
     MatGridListModule
   ],
-  providers: [CountriesService],
+  providers: [CountriesService, StatesProvincesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
