@@ -26,6 +26,7 @@ import {CountriesService} from './components/shared/countries.service';
 import {StatesProvincesService} from './components/shared/states-provinces.service';
 import { Ex2bCountryComponent } from './components/ex2b-country/ex2b-country.component';
 import { Ex2cStateProvinceComponent } from './components/ex2c-state-province/ex2c-state-province.component';
+import { Ex2dCountriesComponent } from './components/ex2d-countries/ex2d-countries.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { Ex2cStateProvinceComponent } from './components/ex2c-state-province/ex2
     Ex2aCountryComponent,
     Dpellinen2aTodoComponent,
     Ex2bCountryComponent,
-    Ex2cStateProvinceComponent
+    Ex2cStateProvinceComponent,
+    Ex2dCountriesComponent
   ],
   imports: [
     ReactiveFormsModule,

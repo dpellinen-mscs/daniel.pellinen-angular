@@ -10,3 +10,16 @@ export class Country {
         public subregion: string)
         {}
 }
+
+
+// export interface CountryIface {
+//     countryId: number,
+//     countryName: string,
+//     formalName: string,
+//     isoAlpha3Code: string,
+//     latestRecordedPopulation: number,
+//     continent: string, 
+//     region: string,
+//     subregion: string
+
+// }
