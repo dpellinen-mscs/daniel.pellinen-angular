@@ -25,8 +25,19 @@ import { HttpClientModule } from '@angular/common/http'; // Import HttpClientMod
 import {CountriesService} from './components/shared/countries.service';
 import {StatesProvincesService} from './components/shared/states-provinces.service';
 import { Ex2bCountryComponent } from './components/ex2b-country/ex2b-country.component';
+
+//Ex2c
 import { Ex2cStateProvinceComponent } from './components/ex2c-state-province/ex2c-state-province.component';
+
+//Ex2d
 import { Ex2dCountriesComponent } from './components/ex2d-countries/ex2d-countries.component';
+
+//Ex2e
+import { Ex2eCountriesComponent } from './components/ex2e-countries/ex2e-countries.component';
+import {SubregionsService} from './components/shared/subregions.service';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 
 
 @NgModule({
@@ -38,9 +49,12 @@ import { Ex2dCountriesComponent } from './components/ex2d-countries/ex2d-countri
     Dpellinen2aTodoComponent,
     Ex2bCountryComponent,
     Ex2cStateProvinceComponent,
-    Ex2dCountriesComponent
+    Ex2dCountriesComponent,
+    Ex2eCountriesComponent
   ],
   imports: [
+    MatFormFieldModule,
+    MatSelectModule,
     ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
@@ -56,7 +70,7 @@ import { Ex2dCountriesComponent } from './components/ex2d-countries/ex2d-countri
     MatDialogModule,
     MatGridListModule
   ],
-  providers: [CountriesService, StatesProvincesService],
+  providers: [CountriesService, StatesProvincesService, SubregionsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

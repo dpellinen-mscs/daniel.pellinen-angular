@@ -1,0 +1,81 @@
+<mat-card>
+    <mat-card-header>
+        <mat-toolbar>
+            <mat-card-title><h4>Ex2e: Load Countries for Selected Subregion</h4></mat-card-title>
+        </mat-toolbar>
+    </mat-card-header>
+</mat-card>
+
+<mat-card>
+<mat-card-content *ngIf="this.countries"> //043 8:15
+    <form class="form-width">
+        <mat-form-field class = "full-width">
+            <mat-select 
+            [formControl]="subregionSelect"
+            placeholder="Subregion"
+            (selectionChange)="subregionSelectChange()">
+                <mat-option *ngFor="let subregion of subregions"  [value] = "subregion">
+                    {{ subregion }}
+                  </mat-option>
+            </mat-select>
+          </mat-form-field>
+        <mat-form-field class = "full-width">
+            <input matInput placeholder="Country ID" 
+            [formControl]="countryIdInput" 
+            required type="number">
+            <mat-error *ngIf="countryIdInput.invalid">Enter country ID</mat-error>
+        </mat-form-field>
+        <mat-form-field class = "full-width">
+            <input matInput placeholder="Country name" 
+            [formControl]="countryNameInput" 
+            required minlength="3" maxlength="40">
+            <mat-error *ngIf="countryNameInput.invalid">Enter country name 3 - 40 characters/mat-error></mat-error>
+        </mat-form-field>
+        <mat-form-field class = "full-width">
+            <input matInput placeholder="Country formal name" 
+            [formControl]="formalNameInput" 
+            required minlength="3" maxlength="40">
+            <mat-error *ngIf="formalNameInput.invalid">Enter formal name: 3-40 characters</mat-error>
+        </mat-form-field>
+            <mat-form-field class = "full-width">
+            <input matInput placeholder="3 Letter Code" 
+            [formControl]="isoAlpha3CodeInput" 
+            required minlength="3" maxlength="40">
+            <mat-error *ngIf="isoAlpha3CodeInput.invalid">Enter 3 letter code: 3-40 characters</mat-error>
+        </mat-form-field>
+        <mat-form-field class = "full-width">
+            <input matInput placeholder="Population" 
+            [formControl]="latestRecordedPopulationInput" 
+            required type="number">
+            <mat-error *ngIf="latestRecordedPopulationInput.invalid">Enter population</mat-error>
+        </mat-form-field>
+        <mat-form-field class = "full-width">
+            <input matInput placeholder="Continent" 
+            [formControl]="continentInput" 
+            required minlength="3" maxlength="40">
+            <mat-error *ngIf="continentInput.invalid">Enter contient: 3 - 40 characters</mat-error>
+        </mat-form-field>
+        <mat-form-field class = "full-width">
+            <input matInput placeholder="Region" 
+            [formControl]="regionInput"
+            required minlength="3" maxlength="40">
+            <mat-error *ngIf="regionInput.invalid">Enter region: 3-40 characters</mat-error>
+        </mat-form-field>
+    <mat-form-field class = "full-width">
+            <input matInput placeholder="Subregion" 
+            [formControl]="subregionInput" 
+            required minlength="3" maxlength="40">
+            <mat-error *ngIf="subregionInput.invalid">Enter subregion: 3-40 characters</mat-error>
+        </mat-form-field>
+    </form>
+</mat-card-content>
+
+<mat-card-actions>
+<button mat-button (click)="getPreviousButtonClick()" [disabled]="this.index == 0"><mat-icon>arrow_back</mat-icon></button>
+<button mat-button (click)="getNextButtonClick()" [disabled]="this.index == this.lastIndex"><mat-icon>arrow_forward</mat-icon></button>
+<!-- <button mat-button (click)="getNorthernAmericaButton()">Northern America</button>
+<button mat-button (click)="getCaribbeanButton()">Caribbean</button>
+<button mat-button (click)="getSouthAmericaButton()">South America</button> -->
+</mat-card-actions>
+</mat-card>
+
