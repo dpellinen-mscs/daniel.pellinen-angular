@@ -35,6 +35,7 @@ import { Ex2dCountriesComponent } from './components/ex2d-countries/ex2d-countri
 //Ex2e
 import { Ex2eCountriesComponent } from './components/ex2e-countries/ex2e-countries.component';
 import {SubregionsService} from './components/shared/subregions.service';
+import {RegionsService} from './components/shared/regions.service';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 

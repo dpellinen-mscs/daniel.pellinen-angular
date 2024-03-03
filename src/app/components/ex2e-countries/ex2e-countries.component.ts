@@ -7,6 +7,8 @@ import { DataSource } from '@angular/cdk/collections';
 import {Country} from '../shared/country.model'
 import {CountriesService} from '../shared/countries.service';
 import {SubregionsService} from '../shared/subregions.service';
+import { RegionsService } from '../shared/regions.service';
+// import {RegionsService} from '../shared/regions.service';
 
 @Component({
   selector: 'app-ex2e-countries',
@@ -15,6 +17,7 @@ import {SubregionsService} from '../shared/subregions.service';
 })
 
 export class Ex2eCountriesComponent implements OnInit {
+  public regionSelect = new FormControl();
   public subregionSelect = new FormControl();
   public countryIdInput = new FormControl({value: '', disabled: true});
   public countryNameInput = new FormControl('', [Validators.required]);
@@ -32,23 +35,43 @@ export class Ex2eCountriesComponent implements OnInit {
   public subregions!: string[];
   public defaultSubregion: string = 'Northern America';
 
+  public regions!: string[];
+  public defaultRegion: string = 'Americas';
+
   constructor(private countriesService: CountriesService,
-    private subregionsService: SubregionsService) { }
+    private subregionsService: SubregionsService, private regionsService: RegionsService) { }
+    
 
 
     //3:43 Default value not showing (SR SelectList)
-  ngOnInit() {
-      this.subregionsService.getSubregions("Americas").subscribe(data => { 
-        this.subregions = data;
-        this.subregionSelect.setValue("Northern America");
-
-        this.countriesService.getCountries(this.subregionSelect.value).subscribe(data => {
-          this.countries = data;
-          this.lastIndex = this.countries.length -1;
-          this.displayCountry()
-       });
-  });
-}
+    ngOnInit() {
+      this.getSubregionsAndRegions();
+    }
+    
+    getSubregionsAndRegions() {
+      this.subregionsService.getSubregions("Americas").subscribe(subregions => { 
+        this.subregions = subregions;
+        this.subregionSelect.setValue(this.subregions[0]); // Assuming you want to preselect the first subregion
+    
+        // Fetch countries based on the selected subregion
+        this.getCountriesAndDisplayCountry(this.subregionSelect.value);
+      });
+    
+      this.regionsService.getRegions().subscribe(regions => {
+        this.regions = regions;
+        this.regionSelect.setValue(this.regions[0]); // Assuming you want to preselect the first region
+      });
+    }
+    
+    getCountriesAndDisplayCountry(subregion: string) {
+      this.countriesService.getCountries(subregion).subscribe(countries => {
+        this.countries = countries;
+        this.lastIndex = this.countries.length - 1;
+        this.displayCountry();
+      });
+    }
+    
+    
 
   displayCountry() : void {
     
@@ -75,7 +98,20 @@ export class Ex2eCountriesComponent implements OnInit {
  subregionSelectChange() : void {
         this.index = 0;
         console.log(this.subregionSelect.value);
+        console.log(this.regionSelect.value);
         this.countriesService.getCountries(this.subregionSelect.value).subscribe(data => {
+          this.countries = data;
+          this.index = 0;
+          this.lastIndex = this.countries.length -1;
+          console.log(this.countries);
+          this.displayCountry();
+        });
+      }
+
+      regionSelectChange() : void {
+        this.index = 0;
+        console.log(this.regionSelect.value);
+        this.countriesService.getCountries(this.regionSelect.value).subscribe(data => {
           this.countries = data;
           this.index = 0;
           this.lastIndex = this.countries.length -1;

@@ -19,6 +19,16 @@
                   </mat-option>
             </mat-select>
           </mat-form-field>
+          <mat-form-field class = "full-width">
+            <mat-select 
+            [formControl]="regionSelect"
+            placeholder="Region"
+            (selectionChange)="regionSelectChange()">
+                <mat-option *ngFor="let region of regions"  [value] = "region">
+                    {{ region }}
+                  </mat-option>
+            </mat-select>
+          </mat-form-field>
         <mat-form-field class = "full-width">
             <input matInput placeholder="Country ID" 
             [formControl]="countryIdInput" 
