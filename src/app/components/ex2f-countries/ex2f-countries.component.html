@@ -1,13 +1,13 @@
 <mat-card>
     <mat-card-header>
         <mat-toolbar>
-            <mat-card-title><h4>Ex2e: Load Countries for Selected Subregion</h4></mat-card-title>
+            <mat-card-title><h4>Ex2f: Load Countries for Selected Subregion</h4></mat-card-title>
         </mat-toolbar>
     </mat-card-header>
 </mat-card>
 
 <mat-card>
-<mat-card-content *ngIf="this.countries"> //043 8:15
+<mat-card-content *ngIf="this.countries">
     <form class="form-width">
         <mat-form-field class = "full-width">
             <mat-select 
@@ -19,6 +19,27 @@
                   </mat-option>
             </mat-select>
           </mat-form-field>
+         <mat-form-field class = "full-width">
+            <mat-select 
+            [formControl]="regionSelect"
+            placeholder="Region"
+            (selectionChange)="regionSelectChange()">
+                <mat-option *ngFor="let region of regions"  [value] = "region">
+                    {{ region }}
+                  </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <!-- <mat-form-field class = "full-width">
+            <mat-select 
+            [formControl]="regionSelect"
+            placeholder="Region"
+            (selectionChange)="regionSelectChange()">
+                <mat-option *ngFor="let region of regions"  [value] = "region">
+                    {{ region }}
+                  </mat-option>
+            </mat-select>
+          </mat-form-field> -->
         <mat-form-field class = "full-width">
             <input matInput placeholder="Country ID" 
             [formControl]="countryIdInput" 

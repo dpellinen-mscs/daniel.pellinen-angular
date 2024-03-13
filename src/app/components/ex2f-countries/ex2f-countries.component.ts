@@ -12,12 +12,12 @@ import { dashCaseToCamelCase } from '@angular/compiler/src/util';
 // import {RegionsService} from '../shared/regions.service';
 
 @Component({
-  selector: 'app-ex2e-countries',
-  templateUrl: './ex2e-countries.component.html',
-  styleUrls: ['./ex2e-countries.component.css']
+  selector: 'app-ex2f-countries',
+  templateUrl: './ex2f-countries.component.html',
+  styleUrls: ['./ex2f-countries.component.css']
 })
 
-export class Ex2eCountriesComponent implements OnInit {
+export class Ex2fCountriesComponent implements OnInit {
   public regionSelect = new FormControl();
   public subregionSelect = new FormControl();
   public countryIdInput = new FormControl({value: '', disabled: true});
@@ -45,51 +45,30 @@ export class Ex2eCountriesComponent implements OnInit {
 
 
   ngOnInit() {
-    this.subregionsService.getSubregions("Americas").subscribe(data => {
-      this.subregions = data;
-      this.subregionSelect.setValue("Northern America")
+    this.regionsService.getRegions().subscribe(data => {
+      this.regions = data;
+      this.regionSelect.setValue("Americas");
+
+      this.subregionsService.getSubregions(this.regionSelect.value).subscribe(data => {
+        this.subregions = data;
+        this.subregionSelect.setValue("Northern America");    
 
       this.countriesService.getCountries(this.subregionSelect.value).subscribe(data => {
         this.countries = data;
         this.lastIndex = this.countries.length -1;
         this.displayCountry();
       });
-    });   
-  }
+    });
+  });   
+}
+  
     
-
-
-
-    // ngOnInit() {
-    //   this.getSubregionsAndRegions();
-    // }
-    
-    // getSubregionsAndRegions() {
-    //   this.subregionsService.getSubregions("Americas").subscribe(subregions => { 
-    //     this.subregions = subregions;
-    //     this.subregionSelect.setValue(this.subregions[0]); // Assuming you want to preselect the first subregion
-    
-    //     // Fetch countries based on the selected subregion
-    //     this.getCountriesAndDisplayCountry(this.subregionSelect.value);
-    //   });
-    
-    //   this.regionsService.getRegions().subscribe(regions => {
-    //     this.regions = regions;
-    //     this.regionSelect.setValue(this.regions[0]); // Assuming you want to preselect the first region
-    //   });
-    // }
-    
-    // getCountriesAndDisplayCountry(subregion: string) {
-    //   this.countriesService.getCountries(subregion).subscribe(countries => {
-    //     this.countries = countries;
-    //     this.lastIndex = this.countries.length - 1;
-    //     this.displayCountry();
-    //   });
-    // }
     
     
 
   displayCountry() : void {
+    if (this.countries && this.countries.length > 0) {
+      this.countryIdInput.setValue(this.countries[this.index].countryId);
     
     this.countryIdInput.setValue(this.countries[this.index].countryId);
     this.countryNameInput.setValue(this.countries[this.index].countryName);
@@ -99,7 +78,8 @@ export class Ex2eCountriesComponent implements OnInit {
     this.continentInput.setValue(this.countries[this.index].continent);
     this.regionInput.setValue(this.countries[this.index].region);
     this.subregionInput.setValue(this.countries[this.index].subregion);
-  }
+} else {
+  console.log("COuntryarryempty");}}
 
   getPreviousButtonClick() : void {
     this.index--;
@@ -110,31 +90,36 @@ export class Ex2eCountriesComponent implements OnInit {
       this.index++;
         this.displayCountry();
       }
+
+  regionSelectChange() : void {
+    this.subregionsService.getSubregions(this.regionSelect.value).subscribe(data => {
+      this.subregions = data;
+      this.index = 0;
+      this.subregionSelectChange();
+      this.displayCountry();
+        });
+      }
   
  subregionSelectChange() : void {
-        this.index = 0;
-        console.log(this.subregionSelect.value);
-        console.log(this.regionSelect.value);
         this.countriesService.getCountries(this.subregionSelect.value).subscribe(data => {
           this.countries = data;
           this.index = 0;
           this.lastIndex = this.countries.length -1;
-          console.log(this.countries);
-          this.displayCountry();
+         this.displayCountry();
         });
       }
 
-      regionSelectChange() : void {
-        this.index = 0;
-        console.log(this.regionSelect.value);
-        this.countriesService.getCountries(this.regionSelect.value).subscribe(data => {
-          this.countries = data;
-          this.index = 0;
-          this.lastIndex = this.countries.length -1;
-          console.log(this.countries);
-          this.displayCountry();
-        });
-      }
+      // regionSelectChange() : void {
+      //   this.index = 0;
+      //   console.log(this.regionSelect.value);
+      //   this.countriesService.getCountries(this.regionSelect.value).subscribe(data => {
+      //     this.countries = data;
+      //     this.index = 0;
+      //     this.lastIndex = this.countries.length -1;
+      //     console.log(this.countries);
+      //     this.displayCountry();
+      //   });
+      // }
 
   getNorthernAmericaButton() : void {
     this.countriesService.getCountries('Northern%20America').subscribe(data => {

@@ -12,12 +12,12 @@ import { dashCaseToCamelCase } from '@angular/compiler/src/util';
 // import {RegionsService} from '../shared/regions.service';
 
 @Component({
-  selector: 'app-ex2e-countries',
-  templateUrl: './ex2e-countries.component.html',
-  styleUrls: ['./ex2e-countries.component.css']
+  selector: 'app-ex3a-countries',
+  templateUrl: './ex3a-countries.component.html',
+  styleUrls: ['./ex3a-countries.component.css']
 })
 
-export class Ex2eCountriesComponent implements OnInit {
+export class Ex3aCountriesComponent implements OnInit {
   public regionSelect = new FormControl();
   public subregionSelect = new FormControl();
   public countryIdInput = new FormControl({value: '', disabled: true});
@@ -29,7 +29,7 @@ export class Ex2eCountriesComponent implements OnInit {
   public regionInput = new FormControl('', [Validators.required]);
   public subregionInput = new FormControl('', [Validators.required]);
 
-  public countries!: Country[]; 
+  public countries: Country[] = []; 
   public index: number = 0;
   public lastIndex: number = 1;
 
@@ -41,51 +41,21 @@ export class Ex2eCountriesComponent implements OnInit {
 
   constructor(private countriesService: CountriesService,
     private subregionsService: SubregionsService, private regionsService: RegionsService) { }
-
-
-
-  ngOnInit() {
-    this.subregionsService.getSubregions("Americas").subscribe(data => {
-      this.subregions = data;
-      this.subregionSelect.setValue("Northern America")
-
-      this.countriesService.getCountries(this.subregionSelect.value).subscribe(data => {
-        this.countries = data;
-        this.lastIndex = this.countries.length -1;
-        this.displayCountry();
-      });
-    });   
-  }
     
 
 
+    ngOnInit() {
+      this.regionsService.getRegions().subscribe(data => {
+        this.regions = data;
+        });
 
-    // ngOnInit() {
-    //   this.getSubregionsAndRegions();
-    // }
-    
-    // getSubregionsAndRegions() {
-    //   this.subregionsService.getSubregions("Americas").subscribe(subregions => { 
-    //     this.subregions = subregions;
-    //     this.subregionSelect.setValue(this.subregions[0]); // Assuming you want to preselect the first subregion
-    
-    //     // Fetch countries based on the selected subregion
-    //     this.getCountriesAndDisplayCountry(this.subregionSelect.value);
-    //   });
-    
-    //   this.regionsService.getRegions().subscribe(regions => {
-    //     this.regions = regions;
-    //     this.regionSelect.setValue(this.regions[0]); // Assuming you want to preselect the first region
-    //   });
-    // }
-    
-    // getCountriesAndDisplayCountry(subregion: string) {
-    //   this.countriesService.getCountries(subregion).subscribe(countries => {
-    //     this.countries = countries;
-    //     this.lastIndex = this.countries.length - 1;
-    //     this.displayCountry();
-    //   });
-    // }
+        this.subregionsService.getSubregions("Americas").subscribe(data => {
+          this.subregions = data;
+        });
+        this.countriesService.getCountries(this.defaultSubregion).subscribe(data => {
+          this.countries = data;
+          this.lastIndex = this.countries.length -1;});
+        }
     
     
 
@@ -101,6 +71,20 @@ export class Ex2eCountriesComponent implements OnInit {
     this.subregionInput.setValue(this.countries[this.index].subregion);
   }
 
+  
+  updateCountryFromForm() : void {
+    
+    this.countries[this.index].countryId = parseInt(this.countryIdInput.value);
+    this.countries[this.index].countryName = (this.countryNameInput.value);
+    this.countries[this.index].formalName = (this.formalNameInput.value);
+    this.countries[this.index].isoAlpha3Code = (this.isoAlpha3CodeInput.value);
+    this.countries[this.index].latestRecordedPopulation = parseInt(this.latestRecordedPopulationInput.value);
+    this.countries[this.index].continent = (this.countryIdInput.value);
+    this.countries[this.index].region = (this.regionInput.value);
+    this.countries[this.index].subregion = (this.subregionInput.value);
+ 
+  }
+
   getPreviousButtonClick() : void {
     this.index--;
     this.displayCountry();
@@ -111,30 +95,24 @@ export class Ex2eCountriesComponent implements OnInit {
         this.displayCountry();
       }
   
- subregionSelectChange() : void {
-        this.index = 0;
-        console.log(this.subregionSelect.value);
-        console.log(this.regionSelect.value);
-        this.countriesService.getCountries(this.subregionSelect.value).subscribe(data => {
-          this.countries = data;
-          this.index = 0;
-          this.lastIndex = this.countries.length -1;
-          console.log(this.countries);
-          this.displayCountry();
-        });
+
+      subregionSelectChange() {
+      this.countriesService.getCountries(this.subregionSelect.value).subscribe(data => {
+        this.countries = data;
+        this.lastIndex = this.countries.length -1;});
       }
 
-      regionSelectChange() : void {
-        this.index = 0;
-        console.log(this.regionSelect.value);
-        this.countriesService.getCountries(this.regionSelect.value).subscribe(data => {
-          this.countries = data;
-          this.index = 0;
-          this.lastIndex = this.countries.length -1;
-          console.log(this.countries);
-          this.displayCountry();
-        });
+      regionSelectChange() {
+        this.subregionsService.getSubregions(this.regionSelect.value).subscribe(data => {
+          this.defaultSubregion = data[0];
+          this.subregions = data;
+
+          this.countriesService.getCountries(this.defaultSubregion).subscribe(data => {
+            this.countries = data;
+            this.lastIndex = this.countries.length -1;});
+        });;
       }
+
 
   getNorthernAmericaButton() : void {
     this.countriesService.getCountries('Northern%20America').subscribe(data => {
@@ -163,6 +141,19 @@ export class Ex2eCountriesComponent implements OnInit {
       this.displayCountry();
     });
   }
+
+  newButtonClick() {
+    // this.updateCountryFromForm();
+    this.countriesService.newCountry(this.countries[this.index]).subscribe(
+      response => console.log(response),
+        error => console.log(error)
+    );
+
+  // newButtonClick() {
+  //   this.updateCountryFromForm();
+  //   this.countriesService.newCountry(this.countries[this.index]).subscribe(
+  //     response => console.log(response),
+  //       error => console.log(error)
+  //   );
+  }
 }
-
-

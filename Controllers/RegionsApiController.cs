@@ -10,12 +10,12 @@ using WideWorld.Models;
 
 namespace WideWorld.Controllers
 {
-    //[Route("api/[controller]")]
-    //[ApiController]
+    [Route("api/[controller]")]
+    [ApiController]
     //[Route("api/RegionsApi")]
     //[ApiController]
-    [Produces("application/json")]
-    [Route("api/RegionsApi")]
+    // [Produces("application/json")]
+    // [Route("api/RegionsApi")]
     public class RegionsApiController : Controller
     {
         private readonly WideWorldContext _context;
@@ -35,18 +35,11 @@ namespace WideWorld.Controllers
         //}
         // GET: api/RegionsApi
         [HttpGet]
-        public IEnumerable<Regions> GetRegions()
+        public async Task<IActionResult> GetRegions()
         {
-            List<string> stringList = new List<string>();
-            stringList = _context.Countries.Select(c => c.Region).Distinct().OrderBy(r => 1).ToList();
-            List<Regions> regionList = new List<Regions>();
-            foreach(string s in stringList)
-            {
-                Regions r = new Regions();
-                r.RegionName = s;
-                regionList.Add(r);
-            }
-            return regionList;
+            List<string> regionList = new List<string>();
+            regionList = await _context.Countries.Select(c => c.Region).Distinct().OrderBy(r => 1).ToListAsync();
+            return Ok(new { regions = regionList});
         }
 
         //private bool CountriesExists(int id)

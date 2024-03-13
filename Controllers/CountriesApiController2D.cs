@@ -97,12 +97,17 @@ namespace WideWorld.Controllers
         // POST: api/CountriesApi
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Countries>> PostCountries(Countries countries)
+        public async Task<ActionResult<Countries>> PostCountries(Countries country)
         {
-            _context.Countries.Add(countries);
+            if (!ModelState.IsValid) 
+            {
+                return BadRequest(ModelState);
+            }
+
+            _context.Countries.Add(country);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCountries", new { id = countries.CountryId }, countries);
+            return CreatedAtAction("GetCountries", new { id = country.CountryId }, country);
         }
 
         // DELETE: api/CountriesApi/5

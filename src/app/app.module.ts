@@ -38,6 +38,8 @@ import {SubregionsService} from './components/shared/subregions.service';
 import {RegionsService} from './components/shared/regions.service';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Ex3aCountriesComponent } from './components/ex3a-countries/ex3a-countries.component';
+import { Ex2fCountriesComponent } from './components/ex2f-countries/ex2f-countries.component';
 
 
 
@@ -51,7 +53,9 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
     Ex2bCountryComponent,
     Ex2cStateProvinceComponent,
     Ex2dCountriesComponent,
-    Ex2eCountriesComponent
+    Ex2eCountriesComponent,
+    Ex3aCountriesComponent,
+    Ex2fCountriesComponent,
   ],
   imports: [
     MatFormFieldModule,
@@ -71,7 +75,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
     MatDialogModule,
     MatGridListModule
   ],
-  providers: [CountriesService, StatesProvincesService, SubregionsService],
+  providers: [CountriesService, StatesProvincesService, SubregionsService, RegionsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

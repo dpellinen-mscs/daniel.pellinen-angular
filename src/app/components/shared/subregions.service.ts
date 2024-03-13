@@ -7,9 +7,7 @@ interface SubregionsServerData {
   subregions: any[];
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class SubregionsService {
   private subregionsApiUrl: string = 'https://localhost:5001/api/SubregionsApi';
 

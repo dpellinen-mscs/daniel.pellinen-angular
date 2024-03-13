@@ -1,13 +1,13 @@
 <mat-card>
     <mat-card-header>
         <mat-toolbar>
-            <mat-card-title><h4>Ex2e: Load Countries for Selected Subregion</h4></mat-card-title>
+            <mat-card-title><h4>Ex3a: Create, Update, Delete Countries</h4></mat-card-title>
         </mat-toolbar>
     </mat-card-header>
 </mat-card>
 
 <mat-card>
-<mat-card-content *ngIf="this.countries"> //043 8:15
+<mat-card-content *ngIf="this.countries"> 
     <form class="form-width">
         <mat-form-field class = "full-width">
             <mat-select 
@@ -16,6 +16,16 @@
             (selectionChange)="subregionSelectChange()">
                 <mat-option *ngFor="let subregion of subregions"  [value] = "subregion">
                     {{ subregion }}
+                  </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class = "full-width">
+            <mat-select 
+            [formControl]="regionSelect"
+            placeholder="Region"
+            (selectionChange)="regionSelectChange()">
+                <mat-option *ngFor="let region of regions"  [value] = "region">
+                    {{ region }}
                   </mat-option>
             </mat-select>
           </mat-form-field>
@@ -73,9 +83,7 @@
 <mat-card-actions>
 <button mat-button (click)="getPreviousButtonClick()" [disabled]="this.index == 0"><mat-icon>arrow_back</mat-icon></button>
 <button mat-button (click)="getNextButtonClick()" [disabled]="this.index == this.lastIndex"><mat-icon>arrow_forward</mat-icon></button>
-<!-- <button mat-button (click)="getNorthernAmericaButton()">Northern America</button>
-<button mat-button (click)="getCaribbeanButton()">Caribbean</button>
-<button mat-button (click)="getSouthAmericaButton()">South America</button> -->
+<button mat-button (click)="newButtonClick()"> <mat-icon>save</mat-icon></button>
 </mat-card-actions>
 </mat-card>
 

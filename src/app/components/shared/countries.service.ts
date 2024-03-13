@@ -3,6 +3,7 @@ import {Country} from './country.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+// import {CountryIface} from './country-iface.model';
 
 
 interface CountriesServerData {
@@ -11,8 +12,8 @@ interface CountriesServerData {
 
 @Injectable()
 export class CountriesService {
-  public country: Country | null = null;
   private countryApiUrl: string = 'https://localhost:5001/api/CountriesApi/';
+  private country!: Country;
 
 
   constructor(private httpClient: HttpClient) { }
@@ -35,30 +36,16 @@ export class CountriesService {
   }));
   }
 
-  // getCountries(subregion: string): Observable<CountryIface[]> {
-  //   // console.log(subregion);
-  //   return this.httpClient.get<CountryIface[]>('https://localhost:5001/api/CountriesApi?subregion=' + subregion);
-
-  // }
 
   getCountries(subregion: string): Observable<Country[]> {
-    // console.log(subregion);
+    console.log("SR= " +subregion);
+    // console.log("R= " +this.region);
+    console.log("C= " +this.country);
     return this.httpClient
     .get<CountriesServerData>('https://localhost:5001/api/CountriesApi?subregion=' + subregion)
     .pipe(map(data => {
       let countries: Country[]= new Array<Country>();
-      // for (var i in data["countries"]) {
-      // let c = data["countries"][i];
-      //   countries.push(new Country(
-      //     c["countryId"],
-      //     c["countryName"],
-      //     c["formalName"],
-      //     c["isoAlpha3Code"],
-      //     c["latestRecordedPopulation"],
-      //     c["continent"],
-      //     c["region"],
-      //     c["subregion"]));
-      //   }
+ 
       for (var i in data.countries) {
         let c = data.countries[i];
           countries.push(new Country(
@@ -73,6 +60,38 @@ export class CountriesService {
           }
           return countries;
   }));
+  }
 
+  newCountry(country: Country) {
+   // let country3 = {"countryName":"Acac","formalName":"ACA","isoAlpha3Code":"ACA","isoNumericCode":8,"countryType":"UN Member State","latestRecordedPopulation":28400000,"continent":"North America","region":"Americas","subregion":"Northern America","lastEditedBy":1}
+    let strCountry: string = JSON.stringify(country);
+    let regex = /"countryId":\d+,/;
+    console.log("REGEX= " +regex);
+    strCountry = strCountry.replace(regex, "");
+    console.log("STRCOUNTRY= " +strCountry);
+    let jsonCountry = JSON.parse(strCountry);
+    console.log("JSONCOUNTRY= " +jsonCountry);
+    return this.httpClient.post(this.countryApiUrl, jsonCountry);
   }
 }
+
+
+  // newCountry(country : Country) {
+  //   // let country2 = {"countryName":"Aabb","formalName":"ABB",
+  //   // "isoAlpha3Code":"ABB","isoNumericCode":5,"countryType":"UN Member State",
+  //   // "latestRecordedPopulation":28400000,"continent":"North America","region":"Americas",
+  //   // "subregion":"Northern America","lastEditedBy":1}
+
+  //   let regex = /"countryId":\d+,/;
+
+  //   let strCountry: string = JSON.stringify(country);
+  //   // let regex = /"countryId"\d+,/;
+  //   strCountry = strCountry.replace(regex, "");
+  //   let jsonCountry = JSON.parse(strCountry);
+  //   console.log("COUNTRY" + country);
+  //   console.log("StrCOUNTRY" + strCountry);
+  //   console.log("JSON COUNTRY" + jsonCountry);
+  //   console.log("JSON COUNTRY STRING" + jsonCountry.toString());
+//     return this.httpClient.post(this.countryApiUrl, jsonCountry);
+//   }
+// }

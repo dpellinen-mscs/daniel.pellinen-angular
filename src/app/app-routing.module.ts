@@ -7,6 +7,8 @@ import { Ex2bCountryComponent } from './components/ex2b-country/ex2b-country.com
 import { Ex2cStateProvinceComponent } from './components/ex2c-state-province/ex2c-state-province.component';
 import { Ex2dCountriesComponent } from './components/ex2d-countries/ex2d-countries.component';
 import { Ex2eCountriesComponent } from './components/ex2e-countries/ex2e-countries.component';
+import { Ex2fCountriesComponent } from './components/ex2f-countries/ex2f-countries.component';
+import { Ex3aCountriesComponent } from './components/ex3a-countries/ex3a-countries.component';
 import { Dpellinen2aTodoComponent } from './components/dpellinen2a-todo/dpellinen2a-todo.component';
 
 
@@ -18,6 +20,8 @@ const routes: Routes = [
   { path: 'ex2c', component: Ex2cStateProvinceComponent },
   { path: 'ex2d', component: Ex2dCountriesComponent },
   { path: 'ex2e', component: Ex2eCountriesComponent },
+  { path: 'ex2f', component: Ex2fCountriesComponent },
+  { path: 'ex3a', component: Ex3aCountriesComponent },
   // { path: 'todo', component: Dpellinen2aTodoComponent },
   { path: '**', redirectTo: 'home' }
 ];
