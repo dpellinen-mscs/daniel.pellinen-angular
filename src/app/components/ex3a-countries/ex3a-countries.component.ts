@@ -47,17 +47,20 @@ export class Ex3aCountriesComponent implements OnInit {
     ngOnInit() {
       this.regionsService.getRegions().subscribe(data => {
         this.regions = data;
-        });
-
-        this.subregionsService.getSubregions("Americas").subscribe(data => {
+        this.regionSelect.setValue("Americas");
+  
+        this.subregionsService.getSubregions(this.regionSelect.value).subscribe(data => {
           this.subregions = data;
-        });
-        this.countriesService.getCountries(this.defaultSubregion).subscribe(data => {
+          this.subregionSelect.setValue("Northern America");    
+  
+        this.countriesService.getCountries(this.subregionSelect.value).subscribe(data => {
           this.countries = data;
-          this.lastIndex = this.countries.length -1;});
-        }
-    
-    
+          this.lastIndex = this.countries.length -1;
+          this.displayCountry();
+        });
+      });
+    });   
+  }
 
   displayCountry() : void {
     
@@ -73,13 +76,12 @@ export class Ex3aCountriesComponent implements OnInit {
 
   
   updateCountryFromForm() : void {
-    
     this.countries[this.index].countryId = parseInt(this.countryIdInput.value);
     this.countries[this.index].countryName = (this.countryNameInput.value);
     this.countries[this.index].formalName = (this.formalNameInput.value);
     this.countries[this.index].isoAlpha3Code = (this.isoAlpha3CodeInput.value);
     this.countries[this.index].latestRecordedPopulation = parseInt(this.latestRecordedPopulationInput.value);
-    this.countries[this.index].continent = (this.countryIdInput.value);
+    this.countries[this.index].continent = (this.continentInput.value);
     this.countries[this.index].region = (this.regionInput.value);
     this.countries[this.index].subregion = (this.subregionInput.value);
  
@@ -99,7 +101,9 @@ export class Ex3aCountriesComponent implements OnInit {
       subregionSelectChange() {
       this.countriesService.getCountries(this.subregionSelect.value).subscribe(data => {
         this.countries = data;
-        this.lastIndex = this.countries.length -1;});
+        this.index = 0;
+        this.lastIndex = this.countries.length -1;
+      this.displayCountry();});
       }
 
       regionSelectChange() {
@@ -109,7 +113,8 @@ export class Ex3aCountriesComponent implements OnInit {
 
           this.countriesService.getCountries(this.defaultSubregion).subscribe(data => {
             this.countries = data;
-            this.lastIndex = this.countries.length -1;});
+            this.lastIndex = this.countries.length -1;
+          this.displayCountry();});
         });;
       }
 
@@ -142,18 +147,16 @@ export class Ex3aCountriesComponent implements OnInit {
     });
   }
 
+  createNewButtonClick() {
+    let c: Country = this.countries[this.index];
+    this.countries.push(new Country(0, "", "", "", 0, c.continent, c.region, c.subregion));
+    this.index = this.countries.length -1;
+  }
+
   newButtonClick() {
-    // this.updateCountryFromForm();
     this.countriesService.newCountry(this.countries[this.index]).subscribe(
       response => console.log(response),
         error => console.log(error)
     );
-
-  // newButtonClick() {
-  //   this.updateCountryFromForm();
-  //   this.countriesService.newCountry(this.countries[this.index]).subscribe(
-  //     response => console.log(response),
-  //       error => console.log(error)
-  //   );
   }
 }

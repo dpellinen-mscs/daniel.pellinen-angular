@@ -38,9 +38,9 @@ export class CountriesService {
 
 
   getCountries(subregion: string): Observable<Country[]> {
-    console.log("SR= " +subregion);
+    // console.log("SR= " +subregion);
     // console.log("R= " +this.region);
-    console.log("C= " +this.country);
+    // console.log("C= " +this.country);
     return this.httpClient
     .get<CountriesServerData>('https://localhost:5001/api/CountriesApi?subregion=' + subregion)
     .pipe(map(data => {
@@ -62,13 +62,25 @@ export class CountriesService {
   }));
   }
 
+//   newCountry(country: Country) {
+//      let country3 = {"countryName":"Acac","formalName":"ACA","isoAlpha3Code":"ACA","isoNumericCode":8,"countryType":"UN Member State","latestRecordedPopulation":28400000,"continent":"North America","region":"Americas","subregion":"Northern America","lastEditedBy":1}
+//      console.log("COUNTRY= " +country);
+//      return this.httpClient.post(this.countryApiUrl, country);
+//    }
+//  }
+ 
+
+
+  //-----------1:20 pm 3.13-------------------------------------------------------------------------------------
+
+
   newCountry(country: Country) {
    // let country3 = {"countryName":"Acac","formalName":"ACA","isoAlpha3Code":"ACA","isoNumericCode":8,"countryType":"UN Member State","latestRecordedPopulation":28400000,"continent":"North America","region":"Americas","subregion":"Northern America","lastEditedBy":1}
     let strCountry: string = JSON.stringify(country);
     let regex = /"countryId":\d+,/;
-    console.log("REGEX= " +regex);
+    // console.log("REGEX= " +regex);
     strCountry = strCountry.replace(regex, "");
-    console.log("STRCOUNTRY= " +strCountry);
+    // console.log("STRCOUNTRY= " +strCountry);
     let jsonCountry = JSON.parse(strCountry);
     console.log("JSONCOUNTRY= " +jsonCountry);
     return this.httpClient.post(this.countryApiUrl, jsonCountry);

@@ -91,23 +91,43 @@ export class Ex2fCountriesComponent implements OnInit {
         this.displayCountry();
       }
 
-  regionSelectChange() : void {
-    this.subregionsService.getSubregions(this.regionSelect.value).subscribe(data => {
-      this.subregions = data;
-      this.index = 0;
-      this.subregionSelectChange();
-      this.displayCountry();
-        });
-      }
-  
- subregionSelectChange() : void {
+      subregionSelectChange() {
         this.countriesService.getCountries(this.subregionSelect.value).subscribe(data => {
           this.countries = data;
           this.index = 0;
           this.lastIndex = this.countries.length -1;
-         this.displayCountry();
-        });
-      }
+        this.displayCountry();});
+        }
+  
+        regionSelectChange() {
+          this.subregionsService.getSubregions(this.regionSelect.value).subscribe(data => {
+            this.defaultSubregion = data[0];
+            this.subregions = data;
+  
+            this.countriesService.getCountries(this.defaultSubregion).subscribe(data => {
+              this.countries = data;
+              this.lastIndex = this.countries.length -1;
+            this.displayCountry();});
+          });;
+        }
+      //-----------1:11 3.14---------------------------------------------------------------------------------------------//
+//   regionSelectChange() : void {
+//     this.subregionsService.getSubregions(this.regionSelect.value).subscribe(data => {
+//       this.subregions = data;
+//       this.index = 0;
+//       this.subregionSelectChange();
+//       this.displayCountry();
+//         });
+//       }
+  
+//  subregionSelectChange() : void {
+//         this.countriesService.getCountries(this.subregionSelect.value).subscribe(data => {
+//           this.countries = data;
+//           this.index = 0;
+//           this.lastIndex = this.countries.length -1;
+//          this.displayCountry();
+//         });
+//       }
 
       // regionSelectChange() : void {
       //   this.index = 0;
