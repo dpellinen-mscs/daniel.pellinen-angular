@@ -74,7 +74,7 @@ export class CountriesService {
   //-----------1:20 pm 3.13-------------------------------------------------------------------------------------
 
 
-  newCountry(country: Country) {
+  newCountry(country: Country): Observable<Country> {
    // let country3 = {"countryName":"Acac","formalName":"ACA","isoAlpha3Code":"ACA","isoNumericCode":8,"countryType":"UN Member State","latestRecordedPopulation":28400000,"continent":"North America","region":"Americas","subregion":"Northern America","lastEditedBy":1}
     let strCountry: string = JSON.stringify(country);
     let regex = /"countryId":\d+,/;
@@ -83,27 +83,42 @@ export class CountriesService {
     // console.log("STRCOUNTRY= " +strCountry);
     let jsonCountry = JSON.parse(strCountry);
     console.log("JSONCOUNTRY= " +jsonCountry);
-    return this.httpClient.post(this.countryApiUrl, jsonCountry);
+    return this.httpClient.post<Country>(this.countryApiUrl, jsonCountry)
+    .pipe(map(data => {
+      //Read the result from the JSON response
+        this.country = new Country(
+          data["countryId"],
+          data["countryName"],
+          data["formalName"],
+          data["isoAlpha3Code"],
+          data["latestRecordedPopulation"],
+          data["continent"],
+          data["region"],
+          data["subregion"]);
+          return this.country;
+    }));
+  }
+
+  deleteCountry(countryId: number): Observable<Country> {
+    return this.httpClient.delete<Country>(this.countryApiUrl + countryId.toString())
+    .pipe(map(data => {
+      //Read the result from the JSON response
+        return new Country(
+          data["countryId"],
+          data["countryName"],
+          data["formalName"],
+          data["isoAlpha3Code"],
+          data["latestRecordedPopulation"],
+          data["continent"],
+          data["region"],
+          data["subregion"]);   
+    }));
+  }
+
+  updateCountry(country: Country) {
+    let strCountry: string = JSON.stringify(country);
+    let jsonCountry = JSON.parse(strCountry);
+    return this.httpClient.put<Country>(this.countryApiUrl +country.countryId.toString() , jsonCountry);
   }
 }
 
-
-  // newCountry(country : Country) {
-  //   // let country2 = {"countryName":"Aabb","formalName":"ABB",
-  //   // "isoAlpha3Code":"ABB","isoNumericCode":5,"countryType":"UN Member State",
-  //   // "latestRecordedPopulation":28400000,"continent":"North America","region":"Americas",
-  //   // "subregion":"Northern America","lastEditedBy":1}
-
-  //   let regex = /"countryId":\d+,/;
-
-  //   let strCountry: string = JSON.stringify(country);
-  //   // let regex = /"countryId"\d+,/;
-  //   strCountry = strCountry.replace(regex, "");
-  //   let jsonCountry = JSON.parse(strCountry);
-  //   console.log("COUNTRY" + country);
-  //   console.log("StrCOUNTRY" + strCountry);
-  //   console.log("JSON COUNTRY" + jsonCountry);
-  //   console.log("JSON COUNTRY STRING" + jsonCountry.toString());
-//     return this.httpClient.post(this.countryApiUrl, jsonCountry);
-//   }
-// }
