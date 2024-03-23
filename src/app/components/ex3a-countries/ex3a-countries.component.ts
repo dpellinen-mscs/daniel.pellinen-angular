@@ -59,7 +59,7 @@ export class Ex3aCountriesComponent implements OnInit {
           this.subregions = data;
           this.subregionSelect.setValue("Northern America");    
   
-        this.countriesService.getCountries(this.subregionSelect.value).subscribe(data => {
+        this.countriesService.getCountries(this.defaultSubregion).subscribe(data => {
           this.countries = data;
           this.lastIndex = this.countries.length -1;
           this.displayCountry();

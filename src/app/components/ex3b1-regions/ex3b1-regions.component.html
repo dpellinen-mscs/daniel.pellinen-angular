@@ -1,0 +1,46 @@
+<mat-card>
+    <mat-card-header>
+        <mat-toolbar>
+            <mat-card-title><h4>Ex3b: Regions List</h4></mat-card-title>
+        </mat-toolbar>
+    </mat-card-header>
+</mat-card>
+
+<mat-card>
+<mat-card-content [style.overflow]="'auto'" [style.height.px]="'300'">
+    <mat-button-toggle-group #regionGroup="matButtonToggleGroup"
+     [value]=this.selectedRegion  style="margin-left: 18px;" [vertical]="true">
+        <mat-button-toggle *ngFor="let region of this.regions"  [value] = "region" [routerLink]="['/ex3b1', region, '']">
+            {{ region }}
+        </mat-button-toggle>
+      </mat-button-toggle-group> 
+
+
+      
+    <mat-button-toggle-group #subregionGroup="matButtonToggleGroup"
+    [value]="this.selectedSubregion " style="margin-left: 4px;" [vertical]="true">
+       <mat-button-toggle *ngFor="let subregion of this.subregions" [routerLink]="['/ex3b1', this.selectedRegion, subregion]" [value] = "subregion">
+           {{ subregion }}
+       </mat-button-toggle>
+     </mat-button-toggle-group>
+
+      <!-- <div class="example-selected-value">Region: {{regionGroup.value}}</div>
+      <div class="example-selected-value">Subregion: {{subregionGroup.value}}</div> -->
+
+      <mat-list role="list">
+        <mat-list-item *ngFor="let country of this.countries" >
+           <a [routerLink]="['/ex3b1', this.selectedRegion, this.selectedSubregion, 'ex3b2', country.countryId]"> {{country.countryName}}</a> , Population: {{country.latestRecordedPopulation}}
+            <!-- <p matLine> {{ country.countryName }}, Population: {{country.latestRecordedPopulation}}</p> -->
+        </mat-list-item>
+      </mat-list>
+      
+      
+</mat-card-content>
+
+<mat-card-actions>
+</mat-card-actions>
+</mat-card>
+
+
+<router-outlet></router-outlet>
+

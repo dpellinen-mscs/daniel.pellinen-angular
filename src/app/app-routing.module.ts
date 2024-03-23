@@ -11,8 +11,12 @@ import { Ex2dCountriesComponent } from './components/ex2d-countries/ex2d-countri
 import { Ex2eCountriesComponent } from './components/ex2e-countries/ex2e-countries.component';
 import { Ex2fCountriesComponent } from './components/ex2f-countries/ex2f-countries.component';
 import { Ex3aCountriesComponent } from './components/ex3a-countries/ex3a-countries.component';
+import { Ex3b1RegionsComponent } from './components/ex3b1-regions/ex3b1-regions.component';
 import { Dpellinen2aTodoComponent } from './components/dpellinen2a-todo/dpellinen2a-todo.component';
-
+import {SampSubject1Component} from './components/samp-subject1/samp-subject1.component'
+import {SampSubject2Component} from './components/samp-subject2/samp-subject2.component'
+import {SampSubject0Component} from './components/samp-subject0/samp-subject0.component'
+import { Ex3b2CountriesComponent  } from './components/ex3b2-countries/ex3b2-countries.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -24,7 +28,17 @@ const routes: Routes = [
   { path: 'ex2e', component: Ex2eCountriesComponent },
   { path: 'ex2f', component: Ex2fCountriesComponent },
   { path: 'ex3a', component: Ex3aCountriesComponent },
-  // { path: 'todo', component: Dpellinen2aTodoComponent },
+  { path: 'ex3b1', component: Ex3b1RegionsComponent },
+  { path: 'ex3b1/:region/:subregion', component: Ex3b1RegionsComponent, children: [
+    { path: 'ex3b2/:countryId', component: Ex3b2CountriesComponent},
+  ]},
+  { path: 'samp1', component: SampSubject1Component },
+  { path: 'samp2', component: SampSubject2Component },
+  { path: 'samp0', component: SampSubject0Component, children: [
+    { path: 'samp1', component: SampSubject1Component },
+    { path: 'samp2', component: SampSubject2Component },
+  ]},
+
   { path: '**', redirectTo: 'home' }
 ];
 

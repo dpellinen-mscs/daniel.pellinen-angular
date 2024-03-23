@@ -10,7 +10,7 @@ using WideWorld.Models;
 
 namespace WideWorld.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/RegionsApi")]
     [ApiController]
     //[Route("api/RegionsApi")]
     //[ApiController]

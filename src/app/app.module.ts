@@ -12,6 +12,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import {MatButtonToggleModule} from '@angular/material/button-toggle' ;
+import {MatListModule} from '@angular/material/list' ;
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
@@ -41,6 +43,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Ex3aCountriesComponent } from './components/ex3a-countries/ex3a-countries.component';
 import { Ex2fCountriesComponent } from './components/ex2f-countries/ex2f-countries.component';
+import { Ex3b1RegionsComponent } from './components/ex3b1-regions/ex3b1-regions.component';
+import { SampSubject1Component } from './components/samp-subject1/samp-subject1.component';
+import { SampSubject2Component } from './components/samp-subject2/samp-subject2.component';
+import { SampSubject0Component } from './components/samp-subject0/samp-subject0.component';
+import { Ex3b2CountriesComponent } from './components/ex3b2-countries/ex3b2-countries.component';
 
 
 
@@ -57,6 +64,11 @@ import { Ex2fCountriesComponent } from './components/ex2f-countries/ex2f-countri
     Ex2eCountriesComponent,
     Ex3aCountriesComponent,
     Ex2fCountriesComponent,
+    Ex3b1RegionsComponent,
+    SampSubject1Component,
+    SampSubject2Component,
+    SampSubject0Component,
+    Ex3b2CountriesComponent,
   ],
   imports: [
     MatFormFieldModule,
@@ -71,10 +83,14 @@ import { Ex2fCountriesComponent } from './components/ex2f-countries/ex2f-countri
     MatIconModule,
     MatMenuModule, 
     MatCardModule, 
+    MatButtonToggleModule,
+    MatListModule,
+  
     MatFormFieldModule,
     MatInputModule,
     MatDialogModule,
-    MatGridListModule
+    MatGridListModule,
+    MatButtonModule,
   ],
   providers: [CountriesService, StatesProvincesService, SubregionsService, RegionsService],
   bootstrap: [AppComponent]

@@ -3,7 +3,8 @@ import {Country} from './country.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-// import {CountryIface} from './country-iface.model';
+import {Subject} from 'rxjs';
+import { ChangeDetectorRef } from '@angular/core';
 
 
 interface CountriesServerData {
@@ -14,9 +15,15 @@ interface CountriesServerData {
 export class CountriesService {
   private countryApiUrl: string = 'https://localhost:5001/api/CountriesApi/';
   private country!: Country;
+  private countries: Country[] = new Array<Country>();   //ex3b
+  public sampSubject = new Subject();
+  public countriesSubject = new Subject<Country>();
+  private cd!: ChangeDetectorRef;
 
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    console.log("CountriesService constructor");
+   }
 
   getCountry(id: number) : Observable<Country> {
     return this.httpClient.get<Country>(this.countryApiUrl + id.toString())
@@ -37,18 +44,44 @@ export class CountriesService {
   }
 
 
+
+  getCountryCopy(id: number) : Country {  
+    let i: number = 0;
+    let c!: Country;
+    for (; i < this.countries.length; i++) {
+      if (this.countries[i].countryId == id) {
+        break;
+      }
+    }
+    if (i < this.countries.length) {  
+      c = new Country(
+        this.countries[i].countryId,
+        this.countries[i].countryName,
+        this.countries[i].formalName,
+        this.countries[i].isoAlpha3Code,
+        this.countries[i].latestRecordedPopulation,
+        this.countries[i].continent,
+        this.countries[i].region,
+        this.countries[i].subregion);
+      } else {
+        // If no matching country was found, create a default one
+        c = new Country(0, "", "", "", 0, "", "", "");
+      }
+      
+      return c;
+    }
+
+
   getCountries(subregion: string): Observable<Country[]> {
-    // console.log("SR= " +subregion);
-    // console.log("R= " +this.region);
-    // console.log("C= " +this.country);
     return this.httpClient
     .get<CountriesServerData>('https://localhost:5001/api/CountriesApi?subregion=' + subregion)
     .pipe(map(data => {
-      let countries: Country[]= new Array<Country>();
- 
+      // let countries: Country[]= new Array<Country>();
+        this.countries = new Array<Country>();  //ex3b
       for (var i in data.countries) {
         let c = data.countries[i];
-          countries.push(new Country(
+          // countries.push(new Country(
+         this.countries.push(new Country(     //ex3b
             c["countryId"],
             c["countryName"],
             c["formalName"],
@@ -58,24 +91,14 @@ export class CountriesService {
             c["region"],
             c["subregion"]));
           }
-          return countries;
+          // return countries;
+          return this.countries;    //ex3b
   }));
   }
 
-//   newCountry(country: Country) {
-//      let country3 = {"countryName":"Acac","formalName":"ACA","isoAlpha3Code":"ACA","isoNumericCode":8,"countryType":"UN Member State","latestRecordedPopulation":28400000,"continent":"North America","region":"Americas","subregion":"Northern America","lastEditedBy":1}
-//      console.log("COUNTRY= " +country);
-//      return this.httpClient.post(this.countryApiUrl, country);
-//    }
-//  }
- 
-
-
-  //-----------1:20 pm 3.13-------------------------------------------------------------------------------------
 
 
   newCountry(country: Country): Observable<Country> {
-   // let country3 = {"countryName":"Acac","formalName":"ACA","isoAlpha3Code":"ACA","isoNumericCode":8,"countryType":"UN Member State","latestRecordedPopulation":28400000,"continent":"North America","region":"Americas","subregion":"Northern America","lastEditedBy":1}
     let strCountry: string = JSON.stringify(country);
     let regex = /"countryId":\d+,/;
     // console.log("REGEX= " +regex);
@@ -118,6 +141,8 @@ export class CountriesService {
   updateCountry(country: Country) {
     let strCountry: string = JSON.stringify(country);
     let jsonCountry = JSON.parse(strCountry);
+    console.log('Sending update request for country:', country);
+
     return this.httpClient.put<Country>(this.countryApiUrl +country.countryId.toString() , jsonCountry);
   }
 }
