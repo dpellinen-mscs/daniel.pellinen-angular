@@ -1,0 +1,56 @@
+<mat-card>
+    <mat-card-header>
+        <mat-toolbar>
+            <mat-card-title><h4>Ex3c: Create, Update, Delete States</h4></mat-card-title>
+        </mat-toolbar>
+    </mat-card-header>
+</mat-card>
+
+<mat-card>
+<mat-card-content *ngIf="this.countries"> 
+    <form class="form-width">
+          <mat-form-field class = "full-width">
+            <mat-select 
+            [formControl]="regionSelect"
+            placeholder="Region"
+            (selectionChange)="regionSelectChange()">
+                <mat-option *ngFor="let region of regions"  [value] = "region">
+                    {{ region }}
+                  </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class = "full-width">
+            <mat-select 
+            [formControl]="subregionSelect"
+            placeholder="Subregion"
+            (selectionChange)="subregionSelectChange()">
+                <mat-option *ngFor="let subregion of subregions"  [value] = "subregion">
+                    {{ subregion }}
+                  </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class = "full-width">
+            <mat-select 
+            [formControl]="countrySelect"
+            placeholder="Country"
+            (selectionChange)="countrySelectChange()">
+                <mat-option *ngFor="let country of countries"  [value] = "country.countryId">
+                    {{ country.countryName }}
+                  </mat-option>
+            </mat-select>
+          </mat-form-field>
+    </form>
+
+    <div *ngIf="this.stateProvinces">
+    <app-ex3c2-states
+    *ngFor="let stateProvince of this.stateProvinces"
+    [stateProvince]="stateProvince"></app-ex3c2-states>
+    </div>
+    <div>
+      <button mat-button (click)="createNewButtonClick()"><mat-icon>add</mat-icon> New State/Province</button> 
+    </div>
+
+
+</mat-card-content>
+</mat-card>
+

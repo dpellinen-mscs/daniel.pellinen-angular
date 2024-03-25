@@ -124,13 +124,6 @@ export class Ex3b2CountriesComponent implements OnInit {
 
   saveButtonClick() {
     if (this.creatingNew) {
-
-//       console.log('Country ID:', this.countryIdInput.value);
-// console.log('Country Name:', this.countryNameInput.value);
-// console.log('Formal Name:', this.formalNameInput.value);
-// console.log('ISO Alpha-3 Code:', this.isoAlpha3CodeInput.value);
-// console.log('Latest Recorded Population:', this.latestRecordedPopulationInput.value);
-
     this.updateCountryFromForm();
     console.log('Updated country model:', this.country);
 

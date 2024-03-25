@@ -1,0 +1,40 @@
+<form class="form-width">
+    <mat-grid-list cols="12" rowHeight="80px">
+        <mat-grid-tile colspan="2">
+            <button mat-button (click)="saveButtonClick()" style="padding: 0px 2px 8px 2px; min-width: 24px"><mat-icon>save</mat-icon></button>
+            <button mat-button (click)="deleteButtonClick()" style="padding: 0px 2px 8px 2px; min-width: 24px"><mat-icon>delete</mat-icon></button>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2">
+            <mat-form-field margin-bottom="10px" class = "full-width">
+                <input matInput placeholder="State/Province Code" margin-top="10px"
+                [formControl]="stateProvinceCodeInput" 
+                required minlength="2" maxlength="2">
+                <mat-error *ngIf="stateProvinceCodeInput.invalid">Enter state/province code</mat-error>
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="3">
+            <mat-form-field margin-bottom="10px" class = "full-width">
+                <input matInput placeholder="State name" margin-top="10px"
+                [formControl]="stateProvinceNameInput" 
+                required minlength="3" maxlength="40">
+                <mat-error *ngIf="stateProvinceNameInput.invalid">Enter state name 3 - 40 characters</mat-error>
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2">
+            <mat-form-field margin-bottom="10px" class = "full-width">
+                <input matInput placeholder="Sales territory" margin-top="10px"
+                [formControl]="salesterritoryInput" 
+                required minlength="3" maxlength="40">
+                <mat-error *ngIf="salesterritoryInput.invalid">Enter sales territory</mat-error>
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2">
+            <mat-form-field margin-bottom="10px" class = "full-width">
+                <input matInput placeholder="Population" margin-top="10px"
+                [formControl]="latestRecordedPopulationInput" 
+                required type="number">
+                <mat-error>Enter Population</mat-error>
+            </mat-form-field>
+        </mat-grid-tile>
+    </mat-grid-list>
+</form>

@@ -48,6 +48,8 @@ import { SampSubject1Component } from './components/samp-subject1/samp-subject1.
 import { SampSubject2Component } from './components/samp-subject2/samp-subject2.component';
 import { SampSubject0Component } from './components/samp-subject0/samp-subject0.component';
 import { Ex3b2CountriesComponent } from './components/ex3b2-countries/ex3b2-countries.component';
+import { Ex3c1Component } from './components/ex3c1/ex3c1.component';
+import { Ex3c2StatesComponent } from './components/ex3c2-states/ex3c2-states.component';
 
 
 
@@ -69,6 +71,8 @@ import { Ex3b2CountriesComponent } from './components/ex3b2-countries/ex3b2-coun
     SampSubject2Component,
     SampSubject0Component,
     Ex3b2CountriesComponent,
+    Ex3c1Component,
+    Ex3c2StatesComponent,
   ],
   imports: [
     MatFormFieldModule,

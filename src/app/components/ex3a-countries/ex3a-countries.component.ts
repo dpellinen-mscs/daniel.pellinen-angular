@@ -177,6 +177,7 @@ export class Ex3aCountriesComponent implements OnInit {
     );
   }
   else{
+    this.updateCountryFromForm();
     this.countriesService.updateCountry(this.countries[this.index]).subscribe(
       response => {
         console.log(response);

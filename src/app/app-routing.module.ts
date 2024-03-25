@@ -17,6 +17,7 @@ import {SampSubject1Component} from './components/samp-subject1/samp-subject1.co
 import {SampSubject2Component} from './components/samp-subject2/samp-subject2.component'
 import {SampSubject0Component} from './components/samp-subject0/samp-subject0.component'
 import { Ex3b2CountriesComponent  } from './components/ex3b2-countries/ex3b2-countries.component';
+import { Ex3c1Component } from './components/ex3c1/ex3c1.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'ex2f', component: Ex2fCountriesComponent },
   { path: 'ex3a', component: Ex3aCountriesComponent },
   { path: 'ex3b1', component: Ex3b1RegionsComponent },
+
   { path: 'ex3b1/:region/:subregion', component: Ex3b1RegionsComponent, children: [
     { path: 'ex3b2/:countryId', component: Ex3b2CountriesComponent},
   ]},
@@ -38,6 +40,8 @@ const routes: Routes = [
     { path: 'samp1', component: SampSubject1Component },
     { path: 'samp2', component: SampSubject2Component },
   ]},
+
+  { path: 'ex3c1', component: Ex3c1Component },
 
   { path: '**', redirectTo: 'home' }
 ];
