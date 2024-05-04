@@ -1,0 +1,10 @@
+073:  Need to make sure Users model is complete and accurate
+
+074:  (or 073)-  need to get data into database (inserSql files for Person and Users)
+
+075: UsersApiController is correct
+
+at 4:30 you can view the users data for Postman request
+
+users.model.ts is correct
+

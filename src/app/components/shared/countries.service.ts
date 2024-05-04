@@ -105,6 +105,7 @@ export class CountriesService {
     strCountry = strCountry.replace(regex, "");
     // console.log("STRCOUNTRY= " +strCountry);
     let jsonCountry = JSON.parse(strCountry);
+    console.log("STRCOUNTRY= " +strCountry);
     console.log("JSONCOUNTRY= " +jsonCountry);
     return this.httpClient.post<Country>(this.countryApiUrl, jsonCountry)
     .pipe(map(data => {

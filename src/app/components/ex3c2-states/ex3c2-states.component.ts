@@ -46,6 +46,7 @@ export class Ex3c2StatesComponent implements OnInit {
   }
 
   saveButtonClick() {
+    this.updateStateFromForm();
     console.log("ID" + this.stateProvince.stateProvinceId);
     if (this.stateProvince.stateProvinceId != 0) {
       this.stateProvincesService.updateStateProvince(this.stateProvince).subscribe(
@@ -66,6 +67,28 @@ export class Ex3c2StatesComponent implements OnInit {
       );
     }
   }
+
+  // saveButtonClick() {
+  //   console.log("ID" + this.stateProvince.stateProvinceId);
+  //   if (this.stateProvince.stateProvinceId != 0) {
+  //     this.stateProvincesService.updateStateProvince(this.stateProvince).subscribe(
+  //       response => {
+  //         console.log(response);
+  //         this.snackBar.open(this.stateProvince.stateProvinceName, "saved", { duration: 2000, });
+  //       },
+  //       error => console.error("Update failed:", error.message)
+  //     );
+  //   }
+  //   else {
+  //     this.stateProvincesService.newStateProvince(this.stateProvince).subscribe(
+  //       response => {
+  //        this.stateProvince = response;
+  //         this.snackBar.open(this.stateProvince.stateProvinceName, "saved", { duration: 2000, });
+  //       },
+  //       error => console.log("Create new failed: " + error)
+  //     );
+  //   }
+  // }
 
   deleteButtonClick() {
     this.stateProvincesService.deleteStateProvince(this.stateProvince.stateProvinceId).subscribe(

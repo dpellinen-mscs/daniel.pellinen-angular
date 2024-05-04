@@ -20,7 +20,7 @@ namespace WideWorld.Models
         public int LastEditedBy { get; set; }
         public StateProvinces StateProvince { get; set; }
 
-        public ICollection<Customers> CustomersPostal { get; set; }
-        public ICollection<Customers> CustomersDelivery { get; set; }
+        // public ICollection<Customers> CustomersPostal { get; set; }
+        // public ICollection<Customers> CustomersDelivery { get; set; }
     }
 }

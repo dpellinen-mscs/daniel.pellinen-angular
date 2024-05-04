@@ -56,18 +56,6 @@ namespace WideWorld.Data
                 context.SaveChanges();
             }
 
-            if (!context.CustomerCategories.Any())
-            {
-                // Insert CustomerCategories
-                file = new System.IO.StreamReader(".\\Data\\InsertCustomerCategories.sql");
-                while ((insertSqlCmd = file.ReadLine()) != null)
-                {
-                    context.RawSqlReturn.FromSqlRaw("set identity_insert Sales.CustomerCategories ON; " + insertSqlCmd + "select 1 as Id;").ToList();
-                }
-                file.Close();
-                context.RawSqlReturn.FromSqlRaw("set identity_insert Sales.CustomerCategories OFF; select 1 as Id;").ToList();
-                context.SaveChanges();
-            }
 
             if (!context.People.Any())
             {
@@ -82,18 +70,36 @@ namespace WideWorld.Data
                 context.SaveChanges();
             }
 
-            if (!context.Customers.Any())
+            //Load Users using SQL INSERT commands
+            //check for previously populated Users table
+            if (!context.Users.Any())
             {
-                // Insert CustomerCategories
-                file = new System.IO.StreamReader(".\\Data\\InsertCustomers.sql");
+                //Insert Users
+                file = new System.IO.StreamReader(".\\Data\\InsertUsers.sql");
                 while ((insertSqlCmd = file.ReadLine()) != null)
                 {
-                    context.RawSqlReturn.FromSqlRaw("set identity_insert Sales.Customers ON; " + insertSqlCmd + "select 1 as Id;").ToList();
+                    context.RawSqlReturn.FromSqlRaw("set identity_insert Application.Users ON; " + insertSqlCmd + "select 1 as Id;").ToList();
                 }
                 file.Close();
-                context.RawSqlReturn.FromSqlRaw("set identity_insert Sales.Customers OFF; select 1 as Id;").ToList();
+                context.RawSqlReturn.FromSqlRaw("set identity_insert Application.Users OFF; select 1 as Id;").ToList();
                 context.SaveChanges();
             }
+
+            //Load People using SQL INSERT commands
+            //check for previously populated People table
+            if (!context.People.Any())
+            {
+                //Insert People
+                file = new System.IO.StreamReader(".\\Data\\InsertPeople.sql");
+                while ((insertSqlCmd = file.ReadLine()) != null)
+                {
+                    context.RawSqlReturn.FromSqlRaw("set identity_insert Application.People ON; " + insertSqlCmd + "select 1 as Id;").ToList();
+                }
+                file.Close();
+                context.RawSqlReturn.FromSqlRaw("set identity_insert Application.People OFF; select 1 as Id;").ToList();
+                context.SaveChanges();
+            }
+
         }
     }
 }

@@ -18,9 +18,11 @@ namespace WideWorld.Data
         public virtual DbSet<Countries> Countries { get; set; }
         public virtual DbSet<StateProvinces> StateProvinces { get; set; }
         public virtual DbSet<Cities> Cities { get; set; }
-        public virtual DbSet<CustomerCategories> CustomerCategories { get; set; }
-        public virtual DbSet<People> People { get; set; }
-        public virtual DbSet<Customers> Customers { get; set; }
+        // public virtual DbSet<CustomerCategories> CustomerCategories { get; set; }
+        // public virtual DbSet<People> People { get; set; }
+        // public virtual DbSet<Customers> Customers { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Person> People { get; set; }
         public virtual DbSet<RawSqlReturn> RawSqlReturn { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -158,42 +160,7 @@ namespace WideWorld.Data
                     .HasConstraintName("FK_Application_Cities_StateProvinceID_Application_StateProvinces");
             });
 
-            modelBuilder.Entity<CustomerCategories>(entity =>
-            {
-                entity.HasKey(e => e.CustomerCategoryId);
-                entity.ToTable("CustomerCategories", "Sales");
-            });
-
-            modelBuilder.Entity<People>(entity =>
-            {
-                entity.ToTable("People", "Application");
-            });
-
-            modelBuilder.Entity<Customers>(entity =>
-            {
-                entity.ToTable("Customers", "Sales");
-                entity.HasOne(cust => cust.PostalCity)
-                    .WithMany(city => city.CustomersPostal)
-                    .HasForeignKey(cust => cust.PostalCityId)
-                    .OnDelete(DeleteBehavior.Restrict)
-                    .HasConstraintName("FK_Sales_Cities_Sales_Customers");
-                entity.HasOne(cust => cust.DeliveryCity)
-                    .WithMany(city => city.CustomersDelivery)
-                    .HasForeignKey(cust => cust.DeliveryCityId)
-                    .OnDelete(DeleteBehavior.Restrict)
-                    .HasConstraintName("FK_Sales_Cities_Sales_Customers_Delivery");
-                entity.HasOne(cust => cust.PrimaryContactPerson)
-                    .WithMany(person => person.CustomersPrimaryContact)
-                    .HasForeignKey(cust => cust.PrimaryContactPersonId)
-                    .OnDelete(DeleteBehavior.Restrict)
-                    .HasConstraintName("FK_AppPeople_SalesCustomers_PrimaryContact");
-                entity.HasOne(cust => cust.AlternateContactPerson)
-                    .WithMany(person => person.CustomersAlternateContact)
-                    .HasForeignKey(cust => cust.AlternateContactPersonId)
-                    .OnDelete(DeleteBehavior.Restrict)
-                    .HasConstraintName("FK_AppPeople_SalesCustomers_AlternateContact");
-            });
-        }
 
     }
+}
 }

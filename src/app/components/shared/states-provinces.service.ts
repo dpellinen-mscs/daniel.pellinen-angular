@@ -62,15 +62,15 @@ updateStateProvince(stateProvince: StateProvince) {
   console.log("strStateProvince: " + strStateProvince);
   let jsonStateProvince = JSON.parse(strStateProvince);
   console.log("jsonStateProvince: " + jsonStateProvince);
-  return this.httpClient.put(this.stateProvinceApiUrl + stateProvince.stateProvinceId.toString(), jsonStateProvince);
+  return this.httpClient.put<StateProvince>(this.stateProvinceApiUrl + stateProvince.stateProvinceId.toString(), jsonStateProvince);
 }
 
 newStateProvince(stateProvince: StateProvince): Observable<StateProvince> {
   let strStateProvince = JSON.stringify(stateProvince);
-  let regex = /"stateProvinceId" :\d+,/;
+  let regex = /"stateProvinceId":\d+,/;
   strStateProvince = strStateProvince.replace(regex, "");
   let jsonStateProvince = JSON.parse(strStateProvince);
-  console.log("stateProvince: " + stateProvince);
+  console.log("stateProvince: " + strStateProvince);
   console.log("jsonStateProvince: " + jsonStateProvince);
   return this.httpClient.post<StateProvince>(this.stateProvinceApiUrl, jsonStateProvince)
   .pipe(map(data => {

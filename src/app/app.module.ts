@@ -51,6 +51,8 @@ import { Ex3b2CountriesComponent } from './components/ex3b2-countries/ex3b2-coun
 import { Ex3c1Component } from './components/ex3c1/ex3c1.component';
 import { Ex3c2StatesComponent } from './components/ex3c2-states/ex3c2-states.component';
 
+import { UsersService } from './components/shared/users.service';
+
 
 
 @NgModule({
@@ -96,7 +98,7 @@ import { Ex3c2StatesComponent } from './components/ex3c2-states/ex3c2-states.com
     MatGridListModule,
     MatButtonModule,
   ],
-  providers: [CountriesService, StatesProvincesService, SubregionsService, RegionsService],
+  providers: [CountriesService, StatesProvincesService, SubregionsService, RegionsService, UsersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
